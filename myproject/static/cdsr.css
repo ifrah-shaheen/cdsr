@@ -1,0 +1,299 @@
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;/* 16px */
+vertical-align:baseline;background:transparent;}
+body{line-height:1;}
+ol,ul{list-style:none;}
+blockquote,q{quotes:none;}
+blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
+:focus{outline:0;}
+ins{text-decoration:none;}
+del{text-decoration:line-through;}
+table{border-collapse:collapse;border-spacing:0;}
+sub{vertical-align:sub;font-size:smaller;line-height:normal;}
+sup{vertical-align:super;font-size:smaller;line-height:normal;}
+@font-face {
+  font-family: "Myriad Web Pro";
+  src: url('fonts/myriad-web-pro.ttf') format('truetype');/*  , url('../fonts/myriad-web-pro.otf') format('opentype') */
+}
+body{ background: url(bg.png) repeat;}
+/***LOGIN PAGE***/
+body
+{
+	margin:0;
+	padding:0;
+	font-family:"Myriad Web Pro";
+	font-size:12px;
+}
+#top{color:#000000;height:167px;background:url(bg.png) repeat-x 0 top;position:relative; top:0; padding-top:2%;margin-bottom: 3%;}
+.login_page{color:#000000;height:110px;background:#1C1C1C url(bg.png) repeat 0 top;position:relative;}
+.loginbox .username {
+
+        margin-right: 10px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        padding: 8px 5px 6px 40px;
+        display: inline-block;
+        font-size: 14px;
+
+}
+input[type=text],input[type=password] 
+{
+	background: url(input-bg.png)repeat; 
+	height:21px; 
+	width:280px;
+	margin-top:5px;
+	margin-bottom:10px;
+	position:relative;
+	z-index:0;
+	color: #dad9da;
+	padding-top:3px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+
+}
+input[type=text]:focus
+{
+	color:#fff
+}
+
+.loginbox .username:focus {
+        background-color: #fff;
+        background-position: 0 -32px;
+		color: #fff;
+}
+.loginbox .password {
+        
+        margin-right: 47px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        padding: 8px 5px 6px 40px;
+        display: inline-block;
+        font-size: 14px;
+
+}
+.loginbox .password:focus {
+        background-color: #fff;
+        background-position: 0 -32px;
+		color: #dad9da;
+}
+
+.btn-blue
+{
+	background-color: #14b9d6;
+	height:36px;
+	color:#fff;
+	min-width:73px;
+	text-align: center;
+	padding-right:10px;
+-webkit-border-top-right-radius: 3px;
+-webkit-border-bottom-right-radius: 3px;
+-moz-border-radius-topright: 3px;
+-moz-border-radius-bottomright: 3px;
+border-top-right-radius: 3px;
+border-bottom-right-radius: 3px;
+	display:inline-block;
+	border:none;
+	margin-right:10px;
+	margin-left:21px;
+	font-size:15px;
+}
+.btn-yellow
+{
+	background-color: #e7c008;
+	height:36px;
+	color:#fff;
+	min-width:73px;
+	text-align: center;
+	padding-right:10px;
+-webkit-border-top-right-radius: 3px;
+-webkit-border-bottom-right-radius: 3px;
+-moz-border-radius-topright: 3px;
+-moz-border-radius-bottomright: 3px;
+border-top-right-radius: 3px;
+border-bottom-right-radius: 3px;
+	display:inline-block;
+	border:none;
+	margin-right:10px;
+	margin-left:21px;
+	font-size:15px;
+}
+.loginbox_content a{ text-decoration:none; color:#fff; cursor:pointer; }
+.btn-aqua
+{
+	background-color: #51d5cb;
+	
+	color:#fff;
+	min-width:73px;
+	text-align: center;
+	padding-top:9px;
+	padding-right:10px;
+	padding-bottom:11px;
+-webkit-border-top-right-radius: 3px;
+-webkit-border-bottom-right-radius: 3px;
+-moz-border-radius-topright: 3px;
+-moz-border-radius-bottomright: 3px;
+border-top-right-radius: 3px;
+border-bottom-right-radius: 3px;
+	display:inline-block;
+	vertical-align:top;
+	border:none;
+	margin-right:3px;
+	margin-left:21px;
+	font-size:15px;
+}
+.btn-red
+{
+	background-color: #f5696c;
+	height:26px;
+	color:#fff;
+	min-width:73px;
+	text-align: center;
+	padding-top:10px;
+	padding-right:10px;
+-webkit-border-top-right-radius: 3px;
+-webkit-border-bottom-right-radius: 3px;
+-moz-border-radius-topright: 3px;
+-moz-border-radius-bottomright: 3px;
+border-top-right-radius: 3px;
+border-bottom-right-radius: 3px;
+	display:inline-block;
+	vertical-align:top;
+	border:none;
+	margin-right:3px;
+	margin-left:21px;
+	font-size:15px;
+}
+.btn-red a{ text-decoration:none;}
+.btn-red a:hover{ color:#fff;}
+#btn-box
+{
+	height:40px;
+	margin:auto;
+	width:355px;
+	margin-top:5px;
+	position:relative;
+	z-index:2;
+}
+#btn-img-box
+{
+	text-align:left;
+	height:40px;
+	margin:auto;
+	width:355px;
+	position:relative;
+	top:-40px;
+	z-index:0;
+	padding-left:21px;
+}
+#btn-img-box img
+{
+	padding:10px 10px 9px 6px;
+
+}
+#register #btn-img-box img
+{
+	padding:10px 10px 9px 6px;
+
+}
+
+.username-icons
+{
+	position: relative;
+	left: 23px;
+	z-index: 1;
+}
+.password-icons
+{
+	position: relative;
+	left: 60px;
+	z-index: 1;
+}
+#icon-plane{ background-color: #0e778a; height:17px;}
+#icon-refresh{ background-color: #817640}
+#icon-plus{ background-color: #538b87}
+.spacer72{ margin-right:72px;}
+.spacer-left-35{ margin-left:35px;}
+
+
+
+
+/***Register PAGE***/
+
+#register
+{
+	margin:2% 15% 30px 14%;
+	background: url(register-form-bg.png) repeat;
+	padding:9px 9px 9px 20px;
+	color:#dad9da;
+	font-size:14px;
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+.label-part
+{
+	float:left;
+	line-height: 41px;
+	margin-right: 7px;
+	margin-left: 14px;
+}
+.input-part
+{
+	float:left;
+}
+#register input[type=text],#register input[type=password]
+{
+	padding-left:5px;
+}
+.clear{ clear:both;}
+#register h1{color:#dad9da; margin-bottom:12px; font-size:25px;}
+.half-form{ width:47%; background-color:transparent; float:left;margin-right:5px;}
+
+#content
+{
+	overflow-y:auto;
+}
+.btn-box-register
+{
+	position:relative;
+	z-index:2;
+}
+#register input[type=button]:hover, #register input[type=submit]:hover{ cursor:pointer;}
+.img-register
+{
+	position: relative;
+	top: -39px;
+	right:-16px
+}
+.img-register img
+{
+	padding:10px 10px 10px 6px;
+	margin-right:74px
+}
+.spacer-height-8
+{
+	height:8px;
+}
+.spacer-height-40
+{
+	height:40px;
+}
+#icon-cancel {
+	background-color: #af4454;
+}
+.spacer-width-26{ width:26px; float:left; height:40px;}
+.btn-aqua-register
+{ margin-right:10px; padding-bottom: 11px;}
+.btn-yellow-register
+{ 
+	position:relative;
+	top:1px;
+	height:37px;
+}
+.btn-red-register
+{
+	position:relative;
+	top:2px;
+}
+.btn-red-position{ position:relative; top:1px; height:16px;}
