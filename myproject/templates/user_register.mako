@@ -2,15 +2,15 @@
 <%def name="title()"> CDSR | Register </%def>
 <div id="register">
 <h1>Register</h1>
-<form action="${request.route_url('user_register')}" method="POST">
+<form action="${request.route_url('user_register')}" method="POST" name="myform" id="myform">
 
 
 	<div class="half-form">
 		<div class="label-part">	
-    		<label for="first_name">first_name</label><br />
-    		<label for="last_name">last_name</label><br />
-   		 	<label for="email">email</label><br />
-    		<label for="phone_no">phone_no</label><br />
+    		<label for="first_name">First name</label><br />
+    		<label for="last_name">Last name</label><br />
+   		 	<label for="email">Email</label><br />
+    		<label for="phone_no">Phone no</label><br />
 		</div>
 		<div class="input-part">
 			<input type="text" name="first_name" id="first_name" value="First name"   onblur="if (this.value == '') {this.value = 'First name';}" onfocus="if (this.value == 'First name') {this.value = '';}"/><br />
@@ -42,16 +42,37 @@
 		
 		<div class="spacer-height-40"></div>
 		<div class="spacer-width-26"></div>
-				<div id="btn-box " class="btn-box-register">
-                	<button type="submit" name="form.submitted" class="btn-aqua btn-aqua-register">Register</button>
-					<button type="reset" name="reset" class="btn-yellow btn-yellow-register">Reset</button>
-					<a name="cancel" href="${request.route_url('pyckauth_login')}" class="btn-red btn-red-register">Cancel</a>
+			
+			
+				<div class="button" >
+					<div class="img-section dark-aqua">
+						<img src="${request.static_url('myproject:static/plus.png')}"  class=" "  alt="icon-signin" />
+					</div>
+					<div class="btn-section ">
+						<button type="submit" name="form.submitted" class="btn-aqua">Register</button>
+					</div>				
 				</div>
-				<div id="btn-img-box " class="img-register">
-					<img src="${request.static_url('myproject:static/plus.png')}"  class="spacer72 "  alt="icon-signin" id="icon-plus"/>
-					<img src="${request.static_url('myproject:static/refresh.png')}"   class="spacer72 " alt="icon-signin" id="icon-refresh"/>
-					<img src="${request.static_url('myproject:static/icon-cancel.png')}" class="spacer72 btn-red-position" alt="icon-cancel" id="icon-cancel"/>
+
+
+				<div class="button" >
+					<div class="img-section dark-yellow">
+						<img src="${request.static_url('myproject:static/refresh.png')}" alt="icon-refresh"/>
+					</div>
+					<div class="btn-section ">
+						<button type="reset" name="reset" class="btn-yellow">Reset</button>
+					</div>				
 				</div>
+
+				<div class="button" >
+					<div class="img-section dark-red">
+						<img src="${request.static_url('myproject:static/icon-cancel.png')}" alt="icon-cancel"/>
+					</div>
+					<div class="btn-section btn-red">
+						<a name="cancel" href="${request.route_url('pyckauth_login')}" class="">Cancel</a>
+					</div>				
+				</div>
+
+			
 	
 </form>
 

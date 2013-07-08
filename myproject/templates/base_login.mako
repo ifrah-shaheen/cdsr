@@ -52,7 +52,7 @@ from myproject.auth import is_allowed
 </%def>
 <%def name="header()">
   <div id="top-small">
-    <img src="${request.static_url('myproject:static/cdsr-logo-2.png')}"  alt="pyck"/>
+    <img src="${request.static_url('myproject:static/cdsr-logo-2.png')}" width="360px" height="75px" alt="pyck"/>
     ${self.main_menu()}
   </div>
 </%def>

@@ -35,13 +35,13 @@ body h6{font-family:"Myriad Web Pro",sans-serif;font-weight:normal;color:#373839
 .login_page{color:#000000;height:110px;background:#1C1C1C url(headerbg.png) repeat 0 top;position:relative;}
 #header,#footer{width:100%;color:#ffffff;height:40px;position:absolute;text-align:center;line-height:40px;overflow:hidden;font-size:12px;vertical-align:middle;}
 #header{background:#000000;top:0;font-size:14px;}
-#footer{background:#191919 url(bg.png) repeat-x 0 top; left:0; position:fixed; text-align:center; color:#dad9da; bottom:0; width:100%;}
+#footer{background:#191919 url(bg.png) repeat-x 0 top; left:0; position:relative; text-align:center; color:#dad9da; bottom:0; width:100%;}
 .header{width:100%; margin-right:auto; margin-left:auto;}
-.footer{width:100%; position:absolute; bottom: 0;}
+.footer{width:100%; position:relative; bottom: 0;}
 .wrapper{width:100%}
 #top,#top-small,#bottom{width:100%;}
 #top{color:#000000;height:230px;background:url(bg.png) repeat-x 0 top;position:relative;}
-#top-small{color:#000000;height:110px;background:url(bg.png) repeat 0 top;position:relative; padding-top:2%; max-width:1160px; padding-left:12%;}
+#top-small{color:#000000;height:87px;background:url(bg.png) repeat 0 top;position:relative; padding-top:2%; max-width:1160px; padding-left:3%;}
 #bottom{color:#222;background-color:#ffffff;}
 .top,.top-small,.middle,.bottom{width:750px;margin-right:auto;margin-left:auto;}
 .top{padding-top:40px;}
