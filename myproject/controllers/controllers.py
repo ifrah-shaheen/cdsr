@@ -1,3 +1,4 @@
+import hashlib
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from auth import User
@@ -19,7 +20,7 @@ def user_register(request):
     if "POST" == request.method:
         U = User() 
         U.user_id = request.POST['username']
-        U.password = request.POST['password']
+        U.password = hashlib.sha1(request.POST['password']).hexdigest()
         U.first_name = request.POST['first_name']  
         U.last_name = request.POST['last_name']  
         U.email = request.POST['email'] 
@@ -32,6 +33,16 @@ def user_register(request):
     return{}
 
         
+
+@view_config(route_name='data_in', renderer='data_in.mako')
+def data_in(request):
+    
+    request.session.flash("data recieved Successfully!")
+
+    return{}
+
+
+
 
 @view_config(route_name='contact', renderer="contact.mako")
 def contact_form(request):

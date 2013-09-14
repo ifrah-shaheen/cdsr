@@ -35,6 +35,7 @@ def main(global_config, **settings):
     config.add_route('home', '/home')
     config.add_route('contact', '/contact')
     config.add_route('user_register','/register')
+    config.add_route('data_in','/data_in')
 
     config.add_route('pyckauth_login', '/')
     config.add_route('pyckauth_logout', '/logout')
