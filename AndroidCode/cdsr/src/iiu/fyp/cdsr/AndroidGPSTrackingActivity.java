@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ public class AndroidGPSTrackingActivity extends Activity {
 	
 	public void create_obj()
 	{
+		String gps_location = null;
         // create class object
         gps = new GPSTracker(AndroidGPSTrackingActivity.this);
 
@@ -53,10 +55,7 @@ public class AndroidGPSTrackingActivity extends Activity {
     			e.printStackTrace();
     		}
     		
-    		//------------- POST this data -------------------
-    		
-    		UploadContent post_obj = new UploadContent();
-    		post_obj.POSTconnection(gps_obj);
+    		gps_location = gps_obj.toString();
     		
             // \n is for new line
             Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();  
@@ -67,6 +66,10 @@ public class AndroidGPSTrackingActivity extends Activity {
             gps.showSettingsAlert();
         }
       
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("GPS", gps_location);
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish();
     }
 
 	

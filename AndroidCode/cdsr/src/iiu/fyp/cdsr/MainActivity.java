@@ -12,11 +12,27 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		Intent i = new Intent(MainActivity.this, AndroidGPSTrackingActivity.class);
-		startActivity(i);
+		startActivityForResult(i, 1);
 		//--------
 		Intent j = new Intent(MainActivity.this, UploadContent.class);
 		startActivity(j);
 	}
+	
+	@Override 
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {     
+	  super.onActivityResult(requestCode, resultCode, data); 
+	  switch(requestCode) { 
+	    case (1) : { 
+	      if (resultCode == Activity.RESULT_OK) { 
+	      String newGps = data.getStringExtra("GPS");
+	      // TODO Update your TextView.
+	      new PostData(newGps).execute();
+	      } 
+	      break; 
+	    } 
+	  } 
+	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
