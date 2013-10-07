@@ -32,7 +32,7 @@ public class UploadContent extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_upload_content);
 		
-		textView1 = (TextView)findViewById(R.id.textView1);
+		textView1 = (TextView)findViewById(R.id.tv1);
 		//----------------
 		Uri uriSMSURI = Uri.parse("content://sms/inbox");
 		JSONObject inboxObject = getsms(uriSMSURI, "inbox");

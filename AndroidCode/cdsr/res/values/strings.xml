@@ -7,5 +7,15 @@
     <string name="title_activity_upload_content">UploadContent</string>
     <string name="title_activity_gps">Gps</string>
     <string name="title_activity_android_gpstracking">AndroidGPSTrackingActivity</string>
+    <string name="title_activity_dbcall_main">DBCallMain</string>
+    <string name="save">Save</string>
+    <string name="title_activity_trying_dbinput">TryingDBInput</string>
+    <string name="password">Password</string>
+    <string name="title_activity_cdsr_input_main">CdsrInputMain</string>
+    <string name="title_activity_main_input">MainInput</string>
+    <string name="register">Register</string>
+    <string name="next">Next</string>
+    <string name="numberHint">Numeric SIM number</string>
+    <string name="title_activity_splash">Splash</string>
 
 </resources>

@@ -21,8 +21,8 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.WRITE_SMS"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
 
     <application
         android:allowBackup="true"
@@ -49,6 +49,26 @@
         <activity
             android:name="iiu.fyp.cdsr.AndroidGPSTrackingActivity"
             android:label="@string/title_activity_android_gpstracking" >
+        </activity>
+        <activity
+            android:name="iiu.fyp.cdsr.DBCallMain"
+            android:label="@string/title_activity_dbcall_main" >
+        </activity>
+        <activity
+            android:name="iiu.fyp.cdsr.TryingDBInput"
+            android:label="@string/title_activity_trying_dbinput" >
+        </activity>
+        <activity
+            android:name="iiu.fyp.cdsr.CdsrInputMain"
+            android:label="@string/title_activity_cdsr_input_main" >
+        </activity>
+        <activity
+            android:name="iiu.fyp.cdsr.MainInput"
+            android:label="@string/title_activity_main_input" >
+        </activity>
+        <activity
+            android:name="iiu.fyp.cdsr.Splash"
+            android:label="@string/title_activity_splash" >
         </activity>
     </application>
 
