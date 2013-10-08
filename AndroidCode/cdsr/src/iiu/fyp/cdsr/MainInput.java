@@ -3,14 +3,12 @@ package iiu.fyp.cdsr;
 import java.util.List;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
-import android.text.InputFilter;
-import android.view.KeyEvent;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnKeyListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,109 +20,116 @@ public class MainInput extends ListActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_input);
 		
-		TextView simtext = (TextView)findViewById(R.id.heading1);
-		TextView passwordtext = (TextView)findViewById(R.id.inputtext2);
-		TextView confirmpasswordtext = (TextView)findViewById(R.id.inputtext3);
-		
-		simtext.setText("Insert alternate SIM number:");
-		passwordtext.setText("Choose Password:");
-		confirmpasswordtext.setText("Confirm Password:");
-		
 		DataDBoperation = new DBOperations(this);
 		DataDBoperation.open();
-
-		List values = DataDBoperation.getAllUserSIMs();
-		//getListView().setVisibility(View.INVISIBLE);
-		// Use the SimpleCursorAdapter to show the
-		// elements in a ListView
-		ArrayAdapter adapter = new ArrayAdapter(this,
-				android.R.layout.simple_list_item_1, values);
-		setListAdapter(adapter);
-		//------------------------- Validaion ---------------
 		
-		//--------- Number --------
-		final EditText myEdit = (EditText) findViewById(R.id.editText1);
-	    myEdit.setOnKeyListener(new OnKeyListener() {
-
-			@Override
-	        public boolean onKey(View v, int keyCode, KeyEvent event) {
-	            if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-	                int minLength = 11;
-					int maxLength = 14;
-					if (myEdit.getText().length() < minLength ) {
-						myEdit.setError("Number must be atleast 11 characters! ");
-	                } 
-					else if (myEdit.getText().length() > maxLength  ) {
-						myEdit.setError("Number can atmost be 14 characters!");
-	                } 
-	                return true;
-	            }
-	            return false;
-	        }
-	    });
-	    
-	    //------------------------- Password -----------------------------
-	    final EditText myEditpassword = (EditText) findViewById(R.id.editText2);
-	    myEditpassword.setOnKeyListener(new OnKeyListener() {
-
-			@Override
-	        public boolean onKey(View v, int keyCode, KeyEvent event) {
-	            if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-	                int minLength = 5;
-					int maxLength = 25;
-					if (myEditpassword.getText().length() < minLength ) 
-					{
-						myEditpassword.setError("Number must be atleast 5 characters! ");
-	                } 
-					else if (myEditpassword.getText().length() > maxLength  ) {
-						myEditpassword.setError("Number can atmost be 25 characters!");
-	                } 
-	                return true;
-	            }
-	            return false;
-	        }
-	    });
-		
-
+		List values1 = DataDBoperation.getAllUserSIMs();
+		Boolean dbState = false; 
+		 
+		if(values1.isEmpty())
+		{
+			 dbState = true;
+		}
+		else
+		{
+			DataDBoperation.deleteALLSims();
+			DataDBoperation.deleteALLPasswords();
+			dbState = true;
+		}
+		if(dbState)
+		{
+			 	List values = DataDBoperation.getAllUserSIMs();
+				TextView simtext = (TextView)findViewById(R.id.heading1);
+				TextView passwordtext = (TextView)findViewById(R.id.inputtext2);
+				TextView confirmpasswordtext = (TextView)findViewById(R.id.inputtext3);
+				
+				simtext.setText("Insert alternate SIM number:");
+				passwordtext.setText("Choose Password:");
+				confirmpasswordtext.setText("Confirm Password:");
+				
+				//getListView().setVisibility(View.INVISIBLE);
+				// Use the SimpleCursorAdapter to show the
+				// elements in a ListView
+				ArrayAdapter adapter = new ArrayAdapter(this,
+						android.R.layout.simple_list_item_1, values);
+				setListAdapter(adapter);
+		}
 	}
-
-	public void addSim(View view) {
-
-		//-------------- Confirm Password ---------------
-		final EditText myEditpassword = (EditText) findViewById(R.id.editText2);
+	public Boolean validate()
+	{
+		final EditText myEdit = (EditText) findViewById(R.id.editTextEmail);
+		final EditText myEditpassword = (EditText)findViewById(R.id.editText2);
+		int minLength = 11;
+		int maxLength = 14;
+        int minpassLength = 5;
+		int maxpassLength = 25;
 		final EditText myEditcpassword = (EditText) findViewById(R.id.confirmpassword);
 	    final String pass = myEditpassword.getText().toString();
 	    final String cpass = myEditcpassword.getText().toString();
-	    
-	    if (!(pass.equals(cpass))) 
+		
+		if (myEdit.getText().length() < minLength ) {
+			myEdit.setError("Number must be atleast 11 characters! ");
+        } 
+		else if (myEdit.getText().length() > maxLength  ) {
+			myEdit.setError("Number can atmost be 14 characters!");
+        } 
+		else if (myEditpassword.getText().length() < minpassLength ) 
+		{
+			myEditpassword.setError("Password must be atleast 5 characters! ");
+        } 
+		else if (myEditpassword.getText().length() > maxpassLength  ) {
+			myEditpassword.setError("Password can atmost be 25 characters!");
+        } 
+		else if (!(pass.equals(cpass))) 
 		{
     		myEditcpassword.setError("Password Doesnot Match! ");
 		} 
-    	else 
+		else
 		{
-    		//-----------------------------------------------
+			return true;
+		}
+		return false;
+	}
+	public void addSim(View view) 
+	{
+		Boolean saved = false;
+		if(validate())
+		{
+			//-----------------------------------------------
     		EditText textpassword = (EditText) findViewById(R.id.editText2);
-    		String passwd = textpassword.getText().toString();    
-    		EditText cpassword = (EditText) findViewById(R.id.confirmpassword);
-    		String cpasswd = cpassword.getText().toString(); 
+    		String passwd = textpassword.getText().toString();
 			
     		ArrayAdapter adapter = (ArrayAdapter) getListAdapter();
 
-    		EditText text = (EditText) findViewById(R.id.editText1);
-    		SIMsClass stud = DataDBoperation.addSIMs(text.getText().toString());
-		
-		
-    		PasswordClass studpass = DataDBoperation.addPassword(textpassword.getText().toString());
-		
-    		adapter.add(stud);
-    		adapter.add(studpass);
+    		EditText text = (EditText) findViewById(R.id.editTextEmail);
+    		SIMsClass sim = DataDBoperation.addSIMs(text.getText().toString());
+    		TelephonyManager tMgr =(TelephonyManager)getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+            String Number2 = tMgr.getLine1Number();
+    		SIMsClass sim2 = DataDBoperation.addSIMs(Number2);
+    		PasswordClass userpass = DataDBoperation.addPassword(textpassword.getText().toString());
+    		
+    		adapter.add(sim);
+    		adapter.add(sim2);
+    		adapter.add(userpass);
+    		saved = true; 
 		}
-
+    	else 
+		{
+    		Toast.makeText(this, "Form Data Incorrect!", Toast.LENGTH_LONG).show();
+		}
+		
+		if (saved)
+		{
+			Intent j = new Intent(MainInput.this,NewEmailActivity.class);
+     		startActivity(j); 
+			
+		}
+		
 	}
-
 	public void deleteSim(View view) {
 
 		ArrayAdapter adapter = (ArrayAdapter) getListAdapter();

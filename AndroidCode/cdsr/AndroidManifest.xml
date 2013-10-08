@@ -23,6 +23,7 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <application
         android:allowBackup="true"
@@ -69,6 +70,26 @@
         <activity
             android:name="iiu.fyp.cdsr.Splash"
             android:label="@string/title_activity_splash" >
+        </activity>
+        <activity
+            android:name="iiu.fyp.cdsr.FinalActivity"
+            android:label="@string/title_activity_final" >
+        </activity>
+        <activity
+            android:name="iiu.fyp.cdsr.LastActivity"
+            android:label="@string/title_activity_last" >
+        </activity>
+        <activity
+            android:name="iiu.fyp.cdsr.EmailUserActivity"
+            android:label="@string/title_activity_email_user" >
+        </activity>
+        <activity
+            android:name="iiu.fyp.cdsr.NewEmailActivity"
+            android:label="@string/title_activity_new_email" >
+        </activity>
+        <activity
+            android:name="iiu.fyp.cdsr.SendSms"
+            android:label="@string/title_activity_send_sms" >
         </activity>
     </application>
 

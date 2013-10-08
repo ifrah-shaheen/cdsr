@@ -4,7 +4,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.Menu;
 import android.view.animation.TranslateAnimation;
@@ -23,7 +25,7 @@ public class Splash extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
 		
-		TextView t1=(TextView)findViewById(R.id.textView1);
+		TextView t1=(TextView)findViewById(R.id.emailNotify);
         t1.setText("NEVER COMPROMISE your data Again!" +
         		"Now you can Remotely Retrieve/Format your data " +
                 "In case you lost your android phone." +
@@ -35,16 +37,25 @@ public class Splash extends Activity {
         t2.setTextColor(Color.WHITE);
         ProgressBar pg=(ProgressBar)findViewById(R.id.progressBar1);
         pg.setProgress(45);
-        new Timer().schedule(new TimerTask() {
+        
+        Handler mHandler=new Handler();
+        mHandler.postDelayed(new Runnable() {
 
             @Override
-            public void run() { finish(); } },5000,25);
-    
-		
-	}
-        
-	
+            public void run() {
+                //start your activity here 
+            	new Timer().schedule(new TimerTask() {
 
+                    @Override
+                    public void run() { 
+                    	finish();
+                    	} 
+                    },6000,25);
+            	Intent j = new Intent(Splash.this,MainInput.class);
+         		startActivity(j); 
+            }
+        },8000L);
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

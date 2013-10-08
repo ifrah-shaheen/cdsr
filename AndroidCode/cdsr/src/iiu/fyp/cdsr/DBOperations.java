@@ -12,14 +12,21 @@ import android.database.sqlite.SQLiteDatabase;
 public class DBOperations {
 
 	// Database fields
-	private DataBaseWrapper dbHelper;
+	private static DataBaseWrapper dbHelper;
 	private String[] SIMs_TABLE_COLUMNS = { DataBaseWrapper.SIMs_ID, DataBaseWrapper.SIMs_number };
 	private String[] PASSWORD_TABLE_COLUMNS = { DataBaseWrapper.Password_ID, DataBaseWrapper.PasswordUser };
 	private SQLiteDatabase database;
+	private static DBOperations operations = null;
 
+	private DBOperations()
+	{
+	}
+	
 	public DBOperations(Context context) {
 		dbHelper = new DataBaseWrapper(context);
 	}
+
+	
 
 	public void open() throws SQLException {
 		database = dbHelper.getWritableDatabase();
@@ -28,7 +35,15 @@ public class DBOperations {
 	public void close() {
 		dbHelper.close();
 	}
-
+	public static DBOperations getInstance(Context context)
+	  {
+		  if(operations == null)
+		  {
+			  dbHelper = new DataBaseWrapper(context);			  
+			  operations = new DBOperations();
+		  }
+		  return operations;
+	  }
 	//----------------------- SIMs Table --------------------------------
 	public SIMsClass addSIMs(String number) {
 
@@ -65,15 +80,41 @@ public class DBOperations {
 
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
-			SIMsClass student = parseSIMs(cursor);
-			SIMs.add(student);
+			SIMsClass sim = parseSIMs(cursor);
+			SIMs.add(sim);
 			cursor.moveToNext();
 		}
 
 		cursor.close();
 		return SIMs;
 	}
+	public String[] getAllUserRegisteredSIMsString() {
+		List SIMs = new ArrayList();
 
+		Cursor cursor = database.query(DataBaseWrapper.SIMs,
+				SIMs_TABLE_COLUMNS, null, null, null, null, null);
+
+		cursor.moveToFirst();
+		String[ ] simNumbers = new String[2] ;
+		int i=0;
+		while (!cursor.isAfterLast()) {
+			SIMsClass sim = parseSIMs(cursor);
+			simNumbers[i] = sim.getSimNumber().toString();
+			i++;
+			SIMs.add(sim);
+			cursor.moveToNext();
+		}
+		
+
+		cursor.close();
+		return simNumbers;
+	}
+	
+	protected void deleteALLSims()
+	{
+		database.delete(DataBaseWrapper.SIMs,null,null);
+	}
+	
 	private SIMsClass parseSIMs(Cursor cursor) {
 		SIMsClass simData = new SIMsClass();
 		simData.setSimId((cursor.getInt(0)));
@@ -102,6 +143,28 @@ public class DBOperations {
 			return newPassword;
 		}
 
+		public String[] getUserPasswordsString() {
+			List SIMs = new ArrayList();
+
+			Cursor cursor = database.query(DataBaseWrapper.PasswordTable,
+					PASSWORD_TABLE_COLUMNS, null, null, null, null, null);
+
+			cursor.moveToFirst();
+			String[ ] password = new String[1] ;
+			int i=0;
+			while (!cursor.isAfterLast()) {
+				PasswordClass sim = parsePasswords(cursor);
+				password[i] = sim.getUserPassword().toString();
+				i++;
+				SIMs.add(sim);
+				cursor.moveToNext();
+			}
+			
+
+			cursor.close();
+			return password;
+		}
+		
 		public void deletePassword(PasswordClass passwordUser) {
 			long id = passwordUser.getUserPasswordId();
 			System.out.println("Comment deleted with id: " + id);
@@ -132,6 +195,11 @@ public class DBOperations {
 			UserPassword.setUserPassword(cursor.getString(1));
 			return UserPassword;
 		}
+		protected void deleteALLPasswords()
+		{
+			database.delete(DataBaseWrapper.PasswordTable,null,null);
+		}
+		
 		
 	
 }

@@ -17,5 +17,10 @@
     <string name="next">Next</string>
     <string name="numberHint">Numeric SIM number</string>
     <string name="title_activity_splash">Splash</string>
+    <string name="title_activity_final">FinalActivity</string>
+    <string name="title_activity_last">LastActivity</string>
+    <string name="title_activity_email_user">EmailUserActivity</string>
+    <string name="title_activity_new_email">NewEmailActivity</string>
+    <string name="title_activity_send_sms">SendSms</string>
 
 </resources>

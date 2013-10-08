@@ -4,8 +4,6 @@ public class SIMsClass {
 
 	private int Simid;
 	private String Simnumber;
-	private int UserPasswordid;
-	private String UserPassword;
 
 	public long getSimId() {
 		return Simid;
