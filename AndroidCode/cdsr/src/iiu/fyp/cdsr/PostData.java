@@ -38,7 +38,7 @@ public class PostData extends AsyncTask<String, Void, String>{
 	protected String doInBackground(String... params) {
 		
 		
-		// perform long running operation operation
+		// perform long running operation
 
 		
 		String server = "http://192.168.1.2:6543/data";
@@ -111,39 +111,6 @@ public class PostData extends AsyncTask<String, Void, String>{
 	protected void onProgressUpdate(Void... values) {
 		// Things to be done while execution of long running operation is in progress. For example updating ProgessDialog
 
-	}
-	
-	
-	public void POSTconnection(JSONObject Object)
-	{
-		String url = "http://192.168.1.2:6543/data";
-		final AndroidHttpClient client = AndroidHttpClient.newInstance("Android");
-		final HttpPost postRequest = new HttpPost(url);
-		
-		StringEntity entity;
-		try {
-			entity = new StringEntity(Object.toString(), HTTP.UTF_8);
-			entity.setContentType("application/json");
-			postRequest.setEntity(entity);
-			
-		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		
-		
-		try {
-	        HttpResponse response = client.execute(postRequest);
-	        if(response != null)
-            {
-            	
-            }
-		}
-		catch (Exception e)
-		{
-			
-		}
 	}
 
 }

@@ -29,28 +29,23 @@ public class SmsReceiver extends BroadcastReceiver
             }
             //---if incomming msg is equal to Msg pattern
             int triggerCommand = getMsgPattern(context);
-            if(triggerCommand == 1 || triggerCommand == 2 || triggerCommand == 3)
+            if(triggerCommand == 1 || triggerCommand == 2 || triggerCommand == 3 || triggerCommand == 4 || triggerCommand == 5 || triggerCommand == 6)
             {
             	switch(triggerCommand)
             	{
             	case 1:
-            	{	///// Upload msgs and contents
+            	{	///// BACKUP
             		Intent i=new Intent(context,UploadContent.class);
             		i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
             		context.startActivity(i);
-            		
-            		///// Delete all
-            		Intent j=new Intent(context,DeleteContent.class);
-            		j.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-            		context.startActivity(j);
             		break;
             	}
             	case 2:
             	{
-            		////backup
-            		Intent k = new Intent(context, UploadContent .class);
-            		k.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            		context.startActivity(k);
+            		//// FORMAT
+            		Intent j=new Intent(context,DeleteContent.class);
+            		j.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+            		context.startActivity(j);
             		break;
             	}
             	case 3:
@@ -63,42 +58,23 @@ public class SmsReceiver extends BroadcastReceiver
             	}
             	case 4:
             	{
-            	////Backup, Format and Locate
-            		///// Upload msgs and contents
-            		Intent i=new Intent(context,UploadContent.class);
-            		i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-            		context.startActivity(i);
-            		
-            		///// Delete all
-            		Intent j=new Intent(context,DeleteContent.class);
-            		j.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-            		context.startActivity(j);
-            		
-            		////Locate
-            		Intent k = new Intent(context, AndroidGPSTrackingActivity .class);
-            		k.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            		context.startActivity(k);
-            		break;
-            	}
-            	case 5:
-            	{
             		////wipe
             		AdminMainActivity adminObj = new AdminMainActivity();
             		adminObj.wipe_device();
             		break;
             	}
-            	case 6:
+            	case 5:
             	{
             		////lock
             		AdminMainActivity adminObj = new AdminMainActivity();
             		adminObj.lock_device();
             		break;
             	}
-            	case 7:
+            	case 6:
             	{
             		////reset password
             		AdminMainActivity adminObj = new AdminMainActivity();
-            		adminObj.reset_password();
+            		adminObj.lock_device();
             		break;
             	}
             	}
@@ -112,13 +88,12 @@ public class SmsReceiver extends BroadcastReceiver
 		DataDBoperation = new DBOperations(c);
 		String[] valuesPassword = DataDBoperation.getUserPasswordsString();
 		password = valuesPassword[0];
-		String pattern1 = "BACKUP&FORMAT *" + password + "*";
-		String pattern2 = "BACKUP *" + password + "*";
+		String pattern1 = "BACKUP *" + password + "*";
+		String pattern2 = "FORMAT *" + password + "*";
 		String pattern3 = "LOCATE *" + password + "*";
-		String pattern4 = "BACKUP&FORMAT&LOCATE *" + password + "*";
-		String pattern5 = "WIPE *" + password + "*";
-		String pattern6 = "LOCK *" + password + "*";
-		String pattern7 = "RESET PASSWORD *" + password + "*";
+		String pattern4 = "WIPE *" + password + "*";
+		String pattern5 = "LOCK *" + password + "*";
+		String pattern6 = "RESETPASSWORD *" + password + "*";
 		
 		if(pattern1.equalsIgnoreCase(str))
 		{ 
@@ -143,10 +118,6 @@ public class SmsReceiver extends BroadcastReceiver
 		else if(pattern6.equalsIgnoreCase(str))
 		{
 			return 6;
-		}
-		else if(pattern7.equalsIgnoreCase(str))
-		{
-			return 7;
 		}
 		return 0;
 	}
