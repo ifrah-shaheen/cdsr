@@ -34,13 +34,6 @@ public class DataBaseWrapper extends SQLiteOpenHelper {
 			+ "(" + Pattern_ID + " integer primary key autoincrement, "
 			+ PatternMsg + " text not null);";
 	
-	private static final String PatternTableFill = "INSERT into " + Pattern + " VALUES ( 1, 'BACKUP&FORMAT' )";
-	private static final String PatternTableFill2 = "INSERT into " + Pattern + " VALUES ( 1, 'LOCATE' )";
-	private static final String PatternTableFill3 = "INSERT into " + Pattern + " VALUES ( 1, 'BACKUP&FORMAT&LOCATE' )";
-	
-	
-	
-
 	private static final String PasswordTableCreate = "create table " + PasswordTable
 			+ "(" + Password_ID + " integer primary key autoincrement, "
 			+ PasswordUser + " text not null);";
@@ -54,9 +47,6 @@ public class DataBaseWrapper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(SIMsTableCreate);
 		db.execSQL(PatternTableCreate);
-		db.execSQL(PatternTableFill);
-		db.execSQL(PatternTableFill2);
-		db.execSQL(PatternTableFill3);
 		db.execSQL(PasswordTableCreate);
 
 	}

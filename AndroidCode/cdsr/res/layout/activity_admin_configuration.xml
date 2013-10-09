@@ -6,39 +6,36 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".NewEmailActivity" >
+    tools:context=".AdminConfiguration" >
 
     <TextView
-        android:id="@+id/emailNotify"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="21dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="38dp"
         android:text="TextView" />
+
+    <Button
+        android:id="@+id/dontEnable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/enable"
+        android:layout_alignBottom="@+id/enable"
+        android:layout_marginLeft="24dp"
+        android:layout_toRightOf="@+id/enable"
+        android:text="@string/dontEnable" 
+        android:onClick="dontEnable_admin"/>
 
     <Button
         android:id="@+id/enable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextEmail"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
-        android:text="@string/register" 
-        android:onClick="sendEmail"/>
-
-    <EditText
-        android:id="@+id/editTextEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/emailNotify"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="63dp"
-        android:ems="10"
-        android:inputType="textEmailAddress" >
-
-        <requestFocus />
-    </EditText>
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_centerVertical="true"
+        android:text="@string/enable" 
+        android:onClick="onClick_Enableadmin"/>
 
 </RelativeLayout>

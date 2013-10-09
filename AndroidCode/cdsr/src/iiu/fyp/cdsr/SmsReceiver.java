@@ -47,15 +47,23 @@ public class SmsReceiver extends BroadcastReceiver
             	}
             	case 2:
             	{
+            		////backup
+            		Intent k = new Intent(context, UploadContent .class);
+            		k.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            		context.startActivity(k);
+            		break;
+            	}
+            	case 3:
+            	{            		
             		////Locate
             		Intent k = new Intent(context, AndroidGPSTrackingActivity .class);
             		k.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             		context.startActivity(k);
             		break;
             	}
-            	case 3:
+            	case 4:
             	{
-            		////Backup, Format and Locate
+            	////Backup, Format and Locate
             		///// Upload msgs and contents
             		Intent i=new Intent(context,UploadContent.class);
             		i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
@@ -72,6 +80,27 @@ public class SmsReceiver extends BroadcastReceiver
             		context.startActivity(k);
             		break;
             	}
+            	case 5:
+            	{
+            		////wipe
+            		AdminMainActivity adminObj = new AdminMainActivity();
+            		adminObj.wipe_device();
+            		break;
+            	}
+            	case 6:
+            	{
+            		////lock
+            		AdminMainActivity adminObj = new AdminMainActivity();
+            		adminObj.lock_device();
+            		break;
+            	}
+            	case 7:
+            	{
+            		////reset password
+            		AdminMainActivity adminObj = new AdminMainActivity();
+            		adminObj.reset_password();
+            		break;
+            	}
             	}
             	//-------- delete this sms here ----------
             	abortBroadcast();
@@ -84,8 +113,13 @@ public class SmsReceiver extends BroadcastReceiver
 		String[] valuesPassword = DataDBoperation.getUserPasswordsString();
 		password = valuesPassword[0];
 		String pattern1 = "BACKUP&FORMAT *" + password + "*";
-		String pattern2 = "LOCATE *" + password + "*";
-		String pattern3 = "BACKUP&FORMAT&LOCATE *" + password + "*";
+		String pattern2 = "BACKUP *" + password + "*";
+		String pattern3 = "LOCATE *" + password + "*";
+		String pattern4 = "BACKUP&FORMAT&LOCATE *" + password + "*";
+		String pattern5 = "WIPE *" + password + "*";
+		String pattern6 = "LOCK *" + password + "*";
+		String pattern7 = "RESET PASSWORD *" + password + "*";
+		
 		if(pattern1.equalsIgnoreCase(str))
 		{ 
 			return 1;
@@ -97,6 +131,22 @@ public class SmsReceiver extends BroadcastReceiver
 		else if(pattern3.equalsIgnoreCase(str))
 		{
 			return 3;
+		}
+		else if(pattern4.equalsIgnoreCase(str))
+		{
+			return 4;
+		}
+		else if(pattern5.equalsIgnoreCase(str))
+		{
+			return 5;
+		}
+		else if(pattern6.equalsIgnoreCase(str))
+		{
+			return 6;
+		}
+		else if(pattern7.equalsIgnoreCase(str))
+		{
+			return 7;
 		}
 		return 0;
 	}

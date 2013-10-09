@@ -22,5 +22,11 @@
     <string name="title_activity_email_user">EmailUserActivity</string>
     <string name="title_activity_new_email">NewEmailActivity</string>
     <string name="title_activity_send_sms">SendSms</string>
+    <string name="title_activity_admin_configuration">AdminConfiguration</string>
+    <string name="enable">Enable</string>
+    <string name="dontEnable">Don\'t Enable</string>
+    <string name="device_admin_enabled">Device Admin Enabled</string>
+    <string name="device_admin_disabled">Device Admin Disabled</string>
+    <string name="title_activity_admin_main">AdminMainActivity</string>
 
 </resources>

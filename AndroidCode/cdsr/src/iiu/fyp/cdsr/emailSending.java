@@ -7,7 +7,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 public class emailSending extends AsyncTask<String, Void, String>{
-
+	
+	static public boolean emailStatus;
 	String email;
 	String accpassword;
 	String sim1;
@@ -18,6 +19,7 @@ public class emailSending extends AsyncTask<String, Void, String>{
 	
 	public emailSending(String email, String accpassword, String sim1, String sim2, String appPassword)
 	{
+		this.emailStatus=false;
 		this.email = email;
 		this.accpassword = accpassword;
 		this.sim1 = sim1;
@@ -75,7 +77,7 @@ public class emailSending extends AsyncTask<String, Void, String>{
 		//----------------------------------------------------------
 		String emailBody = "An account has been created for you at www.cdsr.com. \n\n Login Details: \n" +
 				" Email: "+ email + "\n Password: "+ accpassword + "    \n Your Registered SIMs are:" + sim1 + " & " +
-				sim2 + "\n You entered ' " + appPassword + "' password to execute remote commands "  + 
+				sim2 + "\n You entered ' " + appPassword + "' password to execute remote commands \n" + 
 				".. \n \n  Kindly Login to to our website using your account information for more details..";
 		 try {   
              GMailSender sender = new GMailSender("iffrah.bsse1020@iiu.edu.pk", "yahoogirl");
@@ -85,6 +87,7 @@ public class emailSending extends AsyncTask<String, Void, String>{
              Log.e("SendMail", e.getMessage(), e);   
          }
 		 
+		 emailStatus=true;
 		
 		return null;
 	}

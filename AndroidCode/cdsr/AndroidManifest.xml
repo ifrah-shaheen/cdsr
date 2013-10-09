@@ -24,11 +24,11 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-    <uses-permission android:name="android.permission.WRITE_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -96,18 +96,44 @@
             android:name="iiu.fyp.cdsr.SendSms"
             android:label="@string/title_activity_send_sms" >
         </activity>
-        <receiver android:name=".SmsReceiver"> 
-            <intent-filter android:priority="1000"> 
-                <action android:name=
-                    "android.provider.Telephony.SMS_RECEIVED" /> 
-            </intent-filter> 
+
+        <receiver android:name="iiu.fyp.cdsr.SmsReceiver" >
+            <intent-filter android:priority="1000" >
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
         </receiver>
-        <receiver android:name=".OnBootReceiver">
-      		<intent-filter>
-        		<action android:name="android.intent.action.BOOT_COMPLETED" />
-        		<category android:name="android.intent.category.HOME" />
-      		</intent-filter>
-    </receiver>
+        <receiver android:name="iiu.fyp.cdsr.OnBootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="iiu.fyp.cdsr.AdminConfiguration"
+            android:label="@string/title_activity_admin_configuration" >
+        </activity>
+
+        <receiver
+            android:name="iiu.fyp.cdsr.AndroidAdminReceiver"
+            android:permission="android.permission.BIND_DEVICE_ADMIN" >
+            <intent-filter>
+
+                <!-- This action is required -->
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+
+            <!-- This is required for receiver to become device admin component. -->
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin" />
+        </receiver>
+
+        <activity
+            android:name="iiu.fyp.cdsr.AdminMainActivity"
+            android:label="@string/title_activity_admin_main" >
+        </activity>
     </application>
 
 </manifest>

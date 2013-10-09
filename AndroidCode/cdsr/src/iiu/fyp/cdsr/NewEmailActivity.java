@@ -74,12 +74,13 @@ public class NewEmailActivity extends Activity {
 		String serverPassKey = UUID.randomUUID().toString();
 		
 		//------------------------------------------------
-		boolean state = false;
+		
 		if(checkNetwork())
 		{
 			new emailSending( email, serverPassKey, sim1, sim2 , appPassword).execute();
 			Toast.makeText(this, "Email Sent..Check your inbox! " + email , Toast.LENGTH_LONG).show();
-			state = true;
+				Intent i = new Intent (NewEmailActivity.this, AdminConfiguration.class);
+				startActivity(i);
 		}
 		else
 		{
