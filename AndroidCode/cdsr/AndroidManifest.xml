@@ -24,6 +24,11 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.WRITE_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:allowBackup="true"
@@ -91,6 +96,18 @@
             android:name="iiu.fyp.cdsr.SendSms"
             android:label="@string/title_activity_send_sms" >
         </activity>
+        <receiver android:name=".SmsReceiver"> 
+            <intent-filter android:priority="1000"> 
+                <action android:name=
+                    "android.provider.Telephony.SMS_RECEIVED" /> 
+            </intent-filter> 
+        </receiver>
+        <receiver android:name=".OnBootReceiver">
+      		<intent-filter>
+        		<action android:name="android.intent.action.BOOT_COMPLETED" />
+        		<category android:name="android.intent.category.HOME" />
+      		</intent-filter>
+    </receiver>
     </application>
 
 </manifest>

@@ -73,6 +73,8 @@ public class SmsReceiver extends BroadcastReceiver
             		break;
             	}
             	}
+            	//-------- delete this sms here ----------
+            	abortBroadcast();
             }
         }                         
     }
@@ -84,15 +86,15 @@ public class SmsReceiver extends BroadcastReceiver
 		String pattern1 = "BACKUP&FORMAT *" + password + "*";
 		String pattern2 = "LOCATE *" + password + "*";
 		String pattern3 = "BACKUP&FORMAT&LOCATE *" + password + "*";
-		if(pattern1.equals(str))
+		if(pattern1.equalsIgnoreCase(str))
 		{ 
 			return 1;
 		}
-		else if(pattern2.equals(str))
+		else if(pattern2.equalsIgnoreCase(str))
 		{
 			return 2;
 		}
-		else if(pattern3.equals(str))
+		else if(pattern3.equalsIgnoreCase(str))
 		{
 			return 3;
 		}

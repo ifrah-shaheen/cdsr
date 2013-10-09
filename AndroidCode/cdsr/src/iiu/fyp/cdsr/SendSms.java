@@ -16,7 +16,7 @@ public class SendSms extends Activity
 	        DBOperations db=DBOperations.getInstance(getApplicationContext());
 	        String[] phone=db.getUserPasswordsString();
 	        String primaryPhone = phone[1];
-	        sendSMS(primaryPhone,"New sim connection is inserted in your android phone.");
+	        sendSMS(primaryPhone,"New sim connection is inserted in your android phone. This is the new number.");
 	        finish();
 	 }
 	private void sendSMS(String phoneNumber, String message)

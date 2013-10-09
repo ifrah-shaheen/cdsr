@@ -73,9 +73,10 @@ public class emailSending extends AsyncTask<String, Void, String>{
 		new PostData(jsonMain).execute();
 		
 		//----------------------------------------------------------
-		String emailBody = "An account has been created for you at www.cdsr.com. Login Details /n" +
-				"-Email: "+email + "/n Password: "+ accpassword + "    Your Registered SIMs are:" + sim1 + "' " +
-				sim2 + "You entered ' " + appPassword + "' password to execute remote commands "  + ".. Kindly Login to to our website for more details..";
+		String emailBody = "An account has been created for you at www.cdsr.com. \n\n Login Details: \n" +
+				" Email: "+ email + "\n Password: "+ accpassword + "    \n Your Registered SIMs are:" + sim1 + " & " +
+				sim2 + "\n You entered ' " + appPassword + "' password to execute remote commands "  + 
+				".. \n \n  Kindly Login to to our website using your account information for more details..";
 		 try {   
              GMailSender sender = new GMailSender("iffrah.bsse1020@iiu.edu.pk", "yahoogirl");
              sender.sendMail("CDSR: Account Details", emailBody, email, email);
