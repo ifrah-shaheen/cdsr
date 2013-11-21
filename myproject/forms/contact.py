@@ -7,3 +7,5 @@ class ContactForm(Form):
     email = TextField('Email Address', [validators.Length(min=6, max=35),
                                         validators.Email(message="Invalid email format")])
     message = TextAreaField("Message", [validators.required("Message cannot be empty")])
+    
+

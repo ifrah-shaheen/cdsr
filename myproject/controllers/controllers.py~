@@ -32,6 +32,18 @@ def contact_form(request):
 
             
     return {'contact_form': f}
+
+@view_config(route_name='data', renderer="data.mako")
+def data(request):
+	print "-------------------------------------------------"
+	str = request.body
+	incomingData = json.loads(request.POST['JSONdata'])
+	print incomingData
+	
+	foreach i: str1
+	return{  }
+	
+	
     
 @view_config(route_name='user_register', renderer="register.mako")
 def register_form(request):
@@ -53,12 +65,4 @@ def register_form(request):
 
             
     return {'register_form': r}
-
-@view_config(route_name='User', renderer="User.mako")
-def view(request):
-    one = None
-    return {'one': one, 'project': 'myproject'}
-
-        
-    
     

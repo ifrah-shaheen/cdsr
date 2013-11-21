@@ -1,0 +1,24 @@
+import hashlib
+import json
+from pyramid.view import view_config
+from pyramid.httpexceptions import HTTPFound
+from auth import User
+from ..models import (
+    DBSession, User
+    )
+
+from ..forms import ContactForm, RegisterForm
+
+@view_config(route_name='data', renderer="data.mako")
+def data(request):
+	print "-------------------------------------------------"
+	str = request.body
+	incomingData = json.loads(request.POST['JSONdata'])
+	print incomingData
+	
+	for key, value in incomingData.iteritems():
+	  dataType = key;
+	  if (key == "SMS"):
+	    print "---------------- SMS ----------------"
+	  
+	return{  }

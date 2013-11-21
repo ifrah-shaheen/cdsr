@@ -39,10 +39,10 @@ class User(Base):
 
     user_id = Column(Unicode(100), primary_key=True)
     password = Column(Unicode(40))
-    first_name= Column(Unicode(200)) 
-    last_name= Column(Unicode(200)) 
-    email=Column(Unicode(200),unique=True) 
-    phone_no=Column(Integer,unique=False)
+    first_name = Column(Unicode(200)) 
+    last_name = Column(Unicode(200))  
+    appPassword = Column(Unicode(60))
+
     def __init__(self, user_id='', password=''):
         self.user_id = user_id
         self.password = password
