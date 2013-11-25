@@ -176,68 +176,28 @@ def login(request):
 
     if 'POST' == request.method and login_form.validate():
         U = DBSession.query(User).filter_by(user_id=login_form.user_id.data).first()
-	passKey = hashlib.sha1(login_form.password.data).hexdigest()
-	
-	if U == 'admin':
-	    if passKey == U.password:
+        passKey = hashlib.sha1(login_form.password.data).hexdigest()
+
+        if passKey == U.password:
     
-		request.session['logged_in_user'] = U.user_id
-    
-		#Get user permissions and store them into request.session['auth_user_permissions']
-		user_permissions = []
-		UPs = DBSession.query(UserPermission.permission).filter_by(user_id=U.user_id).all()
-		for UP in UPs:
-		    user_permissions.append(UP[0])
-    
-		request.session['auth_user_permissions'] = user_permissions
-    
-		if request.session.get('came_from', None):
-		    return HTTPFound(location=request.session.get('came_from'))
-		else:
-		    try:
-			#if (U == 'admin'):
-			    return HTTPFound(location=request.route_url('admin.admin_index'))
-			#else:
-			    #user = U.DBSession.query(User.user_id).filter_by(user_id=U.user_id).first()
-			    #return HTTPFound(location=request.route_url('index'))
-			
-			
-		    except Exception:
-			return HTTPFound(location=request.route_url('home'))
-		    
-	    else:
-		request.session.flash("Authentication Failed! Invalid user ID or password")
-		
-	elif U == 'ifrah': 
-	    
-		passKey2 = hashlib.sha1(login_form.password.data).hexdigest()
-		if(passKey2 == U.password):
-		    request.session['logged_in_user'] = U.user_id
-	
-		    #Get user permissions and store them into request.session['auth_user_permissions']
-		    user_permissions = []
-		    UPs = DBSession.query(UserPermission.permission).filter_by(user_id=U.user_id).all()
-		    for UP in UPs:
-			user_permissions.append(UP[0])
-	
-		    request.session['auth_user_permissions'] = user_permissions
-	
-		    if request.session.get('came_from', None):
-			return HTTPFound(location=request.session.get('came_from'))
-		    else:
-			try:
-			    #if (U == 'admin'):
-				return HTTPFound(location=request.route_url('User'))
-			    #else:
-				#user = U.DBSession.query(User.user_id).filter_by(user_id=U.user_id).first()
-				return HTTPFound(location=request.route_url('User'))
-			    
-			    
-			except Exception:
-			    #return HTTPFound(location=request.route_url('home'))
-			    request.session.flash("Authentication Failed! Invalid user ID or password")
-	else:
-			    request.session.flash("Authentication Failed! Invalid user ID or password")	    
+            request.session['logged_in_user'] = U.user_id
+
+            #Get user permissions and store them into request.session['auth_user_permissions']
+            user_permissions = []
+            UPs = DBSession.query(UserPermission.permission).filter_by(user_id=U.user_id).all()
+            for UP in UPs:
+                user_permissions.append(UP[0])
+
+            request.session['auth_user_permissions'] = user_permissions
+
+            if U.user_id == 'admin':
+                return HTTPFound(location=request.route_url('admin.admin_index'))
+            else:
+                return HTTPFound(location=request.route_url('User'))
+
+        else:
+            request.session.flash("Authentication Failed! Invalid user ID or password")	    
+
     return dict(login_form=login_form)
 
 

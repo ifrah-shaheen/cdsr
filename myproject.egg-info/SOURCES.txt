@@ -5,7 +5,9 @@ development.ini
 production.ini
 setup.cfg
 setup.py
+myproject/__init__ (2).py
 myproject/__init__.py
+myproject/auth (2).py
 myproject/auth.py
 myproject.egg-info/PKG-INFO
 myproject.egg-info/SOURCES.txt
@@ -18,13 +20,16 @@ myproject/apps/__init__.py
 myproject/controllers/__init__.py
 myproject/controllers/auth.py
 myproject/controllers/controllers.py
+myproject/controllers/dataRetrieval.py
 myproject/forms/__init__.py
 myproject/forms/auth.py
 myproject/forms/contact.py
+myproject/forms/register.py
 myproject/models/__init__.py
 myproject/models/auth.py
 myproject/models/models.py
 myproject/scripts/__init__.py
+myproject/scripts/android.py
 myproject/scripts/newapp.py
 myproject/scripts/populate.py
 myproject/scripts/newapp_scaffold/static/webapp.png
@@ -58,9 +63,11 @@ myproject/static/refresh.png
 myproject/static/register-form-bg.png
 myproject/static/transparent.gif
 myproject/static/usernamefield.png
+myproject/templates/User.mako
 myproject/templates/base.mako
 myproject/templates/base_login.mako
 myproject/templates/contact.mako
+myproject/templates/data.mako
 myproject/templates/home.mako
 myproject/templates/pyckauth_base.mako
 myproject/templates/pyckauth_login.mako
@@ -68,7 +75,7 @@ myproject/templates/pyckauth_manager.mako
 myproject/templates/pyckauth_permissions.mako
 myproject/templates/pyckauth_routes.mako
 myproject/templates/pyckauth_users.mako
-myproject/templates/user_register.mako
+myproject/templates/register.mako
 myproject/templates/_store/base.mako
 myproject/templates/_store/contact.mako
 myproject/templates/_store/home.mako
